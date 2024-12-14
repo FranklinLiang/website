@@ -38,7 +38,7 @@ export const repo = async (args: string[]): Promise<string> => {
 
 // About
 export const about = async (args: string[]): Promise<string> => {
-  return `Hi, I'm Franklin!. 
+  return `Hi, I'm Franklin!
 Welcome to my website!
 I’m a recent graduate of the University of Waterloo where I studied mathematics and computing. 
 I have a strong interest in the topics of privacy, cybersecurity, and infosec. 
@@ -78,6 +78,13 @@ export const linkedin = async (args: string[]): Promise<string> => {
 
   return 'Opening linkedin...';
 };
+
+// Blog command and link
+export const blog = async(args: string[]): Promise<string> => {
+  window.open(`https://blog.franklinliang.com`);
+
+  return 'Opening blog...';
+}
 
 // Search: Not in use
 /*

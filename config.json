@@ -24,7 +24,7 @@
       "green": "#8be9fd",
       "gray": "#8B6BB9",
       "blue": "#67AFC0",
-      "red": "#ff5555"
+      "red": "#ff79c6"
     },
     "dark": {
       "background": "#282a36",
@@ -33,7 +33,7 @@
       "green": "#8be9fd",
       "gray": "#bd93f9",
       "blue": "#8be9fd",
-      "red": "#ff5555"
+      "red": "#ff79c6"
     }
   }
 }
