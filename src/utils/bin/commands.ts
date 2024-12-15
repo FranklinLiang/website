@@ -2,6 +2,7 @@
 
 import * as bin from './index';
 import config from '../../../config.json';
+import files from '../../../files.json';
 
 // Help
 export const help = async (args: string[]): Promise<string> => {
@@ -118,9 +119,26 @@ export const whoami = async (args: string[]): Promise<string> => {
   return `${config.ps1_username}`;
 };
 
+//ls command reads files from files.json
 export const ls = async (args: string[]): Promise<string> => {
-  return `passwords.txt
-audio.wav`;
+  let file_names = "";
+  
+  files.files.forEach(file => {
+    file_names += `${file.name}\n`;
+  });
+  
+  return file_names;
+};
+
+//cat command reads file content from files in files.json
+export const cat = async (args: string[]): Promise<string> => {
+  const file = files.files.find(file => file.name === args[0]);
+
+  if (file) {
+    return `${file.content}`;
+  } else {
+    return `File ${args[0]} does not exist.`
+  };
 };
 
 export const cd = async (args: string[]): Promise<string> => {

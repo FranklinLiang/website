@@ -1,0 +1,6 @@
+{
+    "files": [
+        { "name": "passwords.txt", "content": "hunter2"},
+        { "name": "hobbies.txt", "content": "Guitar\nWriting\nPoker\nHockey\nSound Engineering"}
+    ]
+}
