@@ -13,13 +13,6 @@ export const help = async (args: string[]): Promise<string> => {
     //I want to always have it separated by line breaks
     c += Object.keys(bin).sort()[i - 1] + '\n';
 
-    //default code
-    /*if (i % 7 === 0) {
-      c += Object.keys(bin).sort()[i - 1] + '\n';
-    } else {
-      c += Object.keys(bin).sort()[i - 1] + ' ';
-    }
-    */
   }
   return `Welcome! Here are all the available commands:
 \n${c}\n
@@ -30,7 +23,7 @@ Type 'neofetch' to display summary.
 };
 
 /*
-// Redirection
+// Redirection (Removed)
 export const repo = async (args: string[]): Promise<string> => {
   window.open(`${config.repo}`);
   return 'Opening Github repository...';
@@ -51,7 +44,7 @@ export const resume = async (args: string[]): Promise<string> => {
   return 'Opening resume...';
 };
 
-// Donate
+// Donate (Removed)
 /*
 export const donate = async (args: string[]): Promise<string> => {
   return `thank you for your interest. 
@@ -87,7 +80,7 @@ export const blog = async(args: string[]): Promise<string> => {
   return 'Opening blog...';
 }
 
-// Search: Not in use
+// Search (Removed)
 /*
 export const google = async (args: string[]): Promise<string> => {
   window.open(`https://google.com/search?q=${args.join(' ')}`);
@@ -141,6 +134,49 @@ export const cat = async (args: string[]): Promise<string> => {
   };
 };
 
+//tcpdump command looks at (simulated) network traffic
+export const ifconfig = async (args: string[]): Promise<string> => {
+  return `eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.1  netmask 255.255.240.0  broadcast 192.168.1.255
+        inet6 fd4b:32a1:b6cd:efc0:c0a8:0101  prefixlen 64  scopeid 0x20<link>
+        ether 3A:57:8C:12:F4:B9  txqueuelen 1000  (Ethernet)
+        RX packets 434449  bytes 417019525 (417.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 146386  bytes 20112770 (20.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 468855  bytes 253389687 (253.3 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 468855  bytes 253389687 (253.3 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0`;
+};
+
+//tcpdump command looks at (simulated) network traffic
+export const tcpdump = async (args: string[]): Promise<string> => {
+
+  const currentTime = new Date();
+  const hours = String(currentTime.getHours()).padStart(2, '0');
+  const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+  const formattedTime = `${hours}:${minutes}`;
+
+  return `${formattedTime}:32.123456 IP 192.168.1.10.54872 > 192.168.1.1.80: Flags [S], seq 1234567890, win 65535, options [mss 1460,sackOK,TS val 123456789 ecr 0,nop,wscale 7], length 0
+${formattedTime}:32.123789 IP 192.168.1.1.80 > 192.168.1.10.54872: Flags [S.], seq 987654321, ack 1234567891, win 65535, options [mss 1460,sackOK,TS val 987654321 ecr 123456789,nop,wscale 7], length 0
+${formattedTime}:32.124012 IP 192.168.1.10.54872 > 192.168.1.1.80: Flags [.], ack 987654322, win 65535, options [nop,nop,TS val 123456790 ecr 987654321], length 0
+${formattedTime}:32.124345 IP 192.168.1.10.54872 > 192.168.1.1.80: Flags [P.], seq 1234567891:1234567903, ack 987654322, win 65535, options [nop,nop,TS val 123456791 ecr 987654321], length 12
+${formattedTime}:32.124678 IP 192.168.1.1.80 > 192.168.1.10.54872: Flags [.], ack 1234567903, win 65535, options [nop,nop,TS val 987654322 ecr 123456791], length 0
+${formattedTime}:39.543210 IP 203.0.113.5.56789 > 192.168.1.1.21: Flags [S], seq 654321098, win 65535, options [mss 1460,sackOK,TS val 223344556 ecr 0,nop,wscale 7], length 0
+${formattedTime}:39.543789 IP 192.168.1.1.21 > 203.0.113.5.56789: Flags [S.], seq 789012345, ack 654321099, win 65535, options [mss 1460,sackOK,TS val 556677889 ecr 223344556,nop,wscale 7], length 0
+${formattedTime}:39.544012 IP 203.0.113.5.56789 > 192.168.1.1.21: Flags [.], ack 789012346, win 65535, options [nop,nop,TS val 223344557 ecr 556677889], length 0
+${formattedTime}:39.544345 IP 203.0.113.5.56789 > 192.168.1.1.21: Flags [P.], seq 654321099:654321121, ack 789012346, win 65535, options [nop,nop,TS val 223344558 ecr 556677889], length 22
+${formattedTime}:39.544678 IP 192.168.1.1.21 > 203.0.113.5.56789: Flags [F.], seq 789012346, ack 654321121, win 65535, options [nop,nop,TS val 556677890 ecr 223344558], length 0
+${formattedTime}:39.545012 IP 203.0.113.5.56789 > 192.168.1.1.21: Flags [R], seq 654321121, win 0, length 0
+`;
+};
+
 export const cd = async (args: string[]): Promise<string> => {
   return `unfortunately, i cannot afford more directories.`;
 };
@@ -149,7 +185,7 @@ export const date = async (args: string[]): Promise<string> => {
   return new Date().toString();
 };
 
-/* Default for fun commands, not in use
+/* Default for fun commands. (Removed)
 export const vi = async (args: string[]): Promise<string> => {
   return `woah, you still use 'vi'? just try 'vim'.`;
 };
