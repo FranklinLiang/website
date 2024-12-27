@@ -5,6 +5,7 @@ import config from '../../../config.json';
 import files from '../../../files.json';
 import adversary from '../../../adversary.json'
 import network from '../../../network.json'
+import playlist from '../../../playlist.json';
 
 // Help
 export const help = async (args: string[]): Promise<string> => {
@@ -229,7 +230,7 @@ Nmap scan report for 192.168.2.17
 Host is up (0.005s latency).
 Not shown: 998 closed ports
 PORT     STATE SERVICE
-22/tcp   open  ssh
+21/tcp   open  ftp
 3389/tcp open  ms-wbt-server
 
 Nmap done: 1 IP address (1 host up) scanned in 0.37 seconds`
@@ -359,6 +360,45 @@ export const flag = async (args: string[]): Promise<string> => {
   } else {
     return `Error: Incorrect flag`
   }
+};
+
+const formatDuration = (ms: number): string => {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+};
+
+let playedSongs: number[] = [];
+
+const getNextSong = (): number => {
+  if (playedSongs.length === 0) {
+    // Repopulate with all indices when exhausted
+    playedSongs = Array.from(Array(playlist.items.length).keys());
+  }
+  
+  // Pick random remaining index
+  const randomIndex = Math.floor(Math.random() * playedSongs.length);
+  const songIndex = playedSongs[randomIndex];
+  
+  // Remove selected index
+  playedSongs.splice(randomIndex, 1);
+  
+  return songIndex;
+};
+
+export const mpd = async (args: string[]): Promise<string> => {
+  const randomSong = playlist.items[getNextSong()];
+  const songName = randomSong.track.name;
+  const artists = randomSong.track.artists.map(artist => artist.name).join(', ');
+  const duration = formatDuration(randomSong.track.duration_ms);
+  const songUrl = randomSong.track.link;
+
+  return `Now Playing: <u><a href="${songUrl}" target="_blank">${songName} - ${artists}</a></u>
+╔══════════════════════════════════╗
+║                                  ║
+║      ►  0:00 ─── ${duration}            ║
+║                                  ║
+╚══════════════════════════════════╝`;
 };
 
 export const cd = async (args: string[]): Promise<string> => {
