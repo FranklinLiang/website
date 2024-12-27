@@ -37,7 +37,7 @@ export const repo = async (args: string[]): Promise<string> => {
 export const about = async (args: string[]): Promise<string> => {
   return `Hi, I'm Franklin!
 Welcome to my website!
-I’m a recent graduate of the University of Waterloo where I studied mathematics and computing. 
+I’m a recent graduate from the University of Waterloo where I studied mathematics and computing. 
 I have a strong interest in the topics of privacy, cybersecurity, and infosec. 
 Feel free to contact me via email to chat about anything!`;
 };
